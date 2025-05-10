@@ -1,8 +1,8 @@
 import PrivateRoute from "@/components/private-route";
 import PublicRoute from "@/components/public-route";
 import AdminPage from "@/pages/admin";
-import { HomePage } from "@/pages/home";
-import { LoginPage } from "@/pages/login";
+import HomePage from "@/pages/home";
+import LoginPage from "@/pages/login";
 import { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 
