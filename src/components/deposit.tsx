@@ -27,7 +27,9 @@ export function Deposit() {
   const { createTransaction } = useTransaction();
   const depositSchema = z.object({
     amount: z
-      .number()
+      .number({
+        invalid_type_error: "O valor deve ser um número",
+      })
       .positive({ message: "O valor deve ser positivo" })
       .min(1, { message: "O valor mínimo é 1" }),
   });
@@ -47,7 +49,7 @@ export function Deposit() {
         throw new Error("Usuário não autenticado");
       }
       const payload = {
-        type: "DEPOSIT" as ETransactionType,
+        type: ETransactionType.DEPOSIT,
         amount: data.amount,
         receiverId: currentUser.id,
         userId: currentUser.id,
@@ -61,7 +63,7 @@ export function Deposit() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50 p-4">
+    <div className="flex items-start justify-center min-h-screen bg-gray-50 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">Depósito</CardTitle>
@@ -83,6 +85,9 @@ export function Deposit() {
                         type="number"
                         placeholder="Digite o valor"
                         {...field}
+                        onChange={(e) =>
+                          field.onChange(e.target.valueAsNumber || 0)
+                        }
                       />
                     </FormControl>
                     <FormMessage />
