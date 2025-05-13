@@ -8,7 +8,7 @@ export function NavBar() {
   return (
     <nav className="w-full flex flex-row justify-between items-center p-4 bg-blackcolor2">
       <SideBar />
-      <h1 className="text-xl font-medium">Olhar180</h1>
+      <h1 className="text-xl font-medium">Mark Bank</h1>
       <Button onClick={signOut} variant="outline">
         <LogOut />
       </Button>

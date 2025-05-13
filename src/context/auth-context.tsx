@@ -2,6 +2,11 @@ import { useAuthService } from "@/services/auth-service";
 import { User } from "@/types/user";
 import { createContext, useContext, useEffect, useState } from "react";
 
+interface RegisterData {
+  name: string;
+  email: string;
+  password: string;
+}
 interface AuthData {
   email: string;
   password: string;
@@ -10,6 +15,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   currentUser: User | null;
   signIn: (authData: AuthData) => Promise<void>;
+  signUp: (authData: RegisterData) => Promise<void>;
   signOut: () => void;
   setIsAuthenticated: (value: boolean) => void;
 }
@@ -18,6 +24,7 @@ export const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   currentUser: null,
   signIn: async () => {},
+  signUp: async () => {},
   signOut: () => {},
   setIsAuthenticated: () => {},
 });
@@ -32,7 +39,7 @@ export default function AuthProvider({
   const [isAuthenticated, setIsAuthenticated] = useState(
     isTokenValid(token || "")
   );
-  const { login } = useAuthService();
+  const { login, register } = useAuthService();
 
   function isTokenValid(token: string): boolean {
     try {
@@ -76,6 +83,27 @@ export default function AuthProvider({
       setIsAuthenticated(false);
     }
   }
+
+  async function signUp(authData: RegisterData) {
+    try {
+      const response = await register(
+        authData.name,
+        authData.email,
+        authData.password
+      );
+      const { access_token, user } = response.data;
+      if (isTokenValid(access_token)) {
+        localStorage.setItem("accessToken", access_token);
+        localStorage.setItem("currentUser", JSON.stringify(user));
+
+        setCurrentUser(user);
+        setIsAuthenticated(true);
+      }
+    } catch (error) {
+      console.error("Error during sign-up:", error);
+      setIsAuthenticated(false);
+    }
+  }
   function signOut() {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("currentUser");
@@ -93,6 +121,7 @@ export default function AuthProvider({
         isAuthenticated,
         currentUser,
         signIn,
+        signUp,
         signOut,
         setIsAuthenticated,
       }}

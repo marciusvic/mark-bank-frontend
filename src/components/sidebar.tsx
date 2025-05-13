@@ -3,7 +3,6 @@ import {
   CircleChevronRightIcon,
   CircleChevronLeftIcon,
   LayoutDashboard,
-  UserPlus,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -27,14 +26,9 @@ export function SideBar() {
 
   const menuItems: MenuItem[] = [
     {
-      title: "Tarefas",
+      title: "Dashboard",
       href: "/",
       icon: <LayoutDashboard className="h-5 w-5 mr-2" />,
-    },
-    {
-      title: "Criar tarefa",
-      href: "/create-task",
-      icon: <UserPlus className="h-5 w-5 mr-2" />,
     },
     {
       title: "Admin",

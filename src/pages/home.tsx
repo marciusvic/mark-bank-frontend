@@ -1,3 +1,3 @@
 export default function HomePage() {
-  return <>ola</>;
+  return <div className="w-full h-full">ola</div>;
 }

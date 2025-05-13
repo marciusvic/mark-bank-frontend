@@ -1,3 +1,9 @@
+import { RegisterComponent } from "@/components/register";
+
 export default function RegisterPage() {
-  return <>ola</>;
+  return (
+    <div className="w-full h-full">
+      <RegisterComponent />
+    </div>
+  );
 }

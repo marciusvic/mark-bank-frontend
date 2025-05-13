@@ -3,6 +3,7 @@ import PublicRoute from "@/components/public-route";
 import AdminPage from "@/pages/admin";
 import HomePage from "@/pages/home";
 import LoginPage from "@/pages/login";
+import RegisterPage from "@/pages/register";
 import { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 
@@ -15,6 +16,14 @@ function AppRouter() {
           element={
             <PublicRoute>
               <LoginPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <RegisterPage />
             </PublicRoute>
           }
         />
