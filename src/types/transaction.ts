@@ -1,10 +1,13 @@
 import { User } from "./user";
 
-export type TransactionType = "DEPOSIT" | "TRANSFER";
+export enum ETransactionType {
+  DEPOSIT = "DEPOSIT",
+  TRANSFER = "TRANSFER",
+}
 
 export interface Transaction {
   id: string;
-  type: TransactionType;
+  type: ETransactionType;
   amount: number;
   userId: string;
   user: User;
@@ -18,11 +21,9 @@ export interface Transaction {
 }
 
 export interface CreateTransactionDto {
-  type: TransactionType;
+  type: ETransactionType;
   amount: number;
   senderId?: string;
   receiverId: string;
-  reversed: boolean;
-  createdAt: Date;
   userId: string;
 }

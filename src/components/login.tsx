@@ -22,19 +22,18 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
-const loginSchema = z.object({
-  email: z
-    .string()
-    .email({ message: "Por favor, insira um endereço de e-mail válido" }),
-  senha: z.string().min(1, { message: "A senha é obrigatória" }),
-});
-
-type LoginFormValues = z.infer<typeof loginSchema>;
-
 export function LoginComponent() {
   const { signIn } = useAuth();
   const [isCarregando, setIsCarregando] = useState(false);
   const navigate = useNavigate();
+  const loginSchema = z.object({
+    email: z
+      .string()
+      .email({ message: "Por favor, insira um endereço de e-mail válido" }),
+    senha: z.string().min(1, { message: "A senha é obrigatória" }),
+  });
+
+  type LoginFormValues = z.infer<typeof loginSchema>;
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
